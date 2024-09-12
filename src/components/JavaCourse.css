@@ -1,0 +1,249 @@
+.java-course-container {
+    font-family: Arial, sans-serif;
+  }
+  
+  .java-module {
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .java-module-title {
+    background-color: #f0f0f0;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .java-module-title:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .java-module-content {
+    padding: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid #ccc;
+  }
+  
+  .java-example {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  
+  .java-course-container {
+    font-family: Arial, sans-serif;
+  }
+  
+  .java-module {
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .java-module-title {
+    background-color: #f0f0f0;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .java-module-title:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .java-module-content {
+    padding: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid #ccc;
+  }
+  
+  .java-example {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-family: "Courier New", Courier, monospace;
+    color: #333;
+  }
+  
+  .java-example .keyword {
+    color: #d73a49; /* Red for keywords like public, class, void */
+    font-weight: bold;
+  }
+  
+  .java-example .class-name {
+    color: #6f42c1; /* Purple for class names */
+  }
+  
+  .java-example .method-name {
+    color: #005cc5; /* Blue for method names */
+  }
+  
+  .java-example .string {
+    color: #032f62; /* Dark blue for strings */
+  }
+  
+  .java-example .comment {
+    color: #6a737d; /* Grey for comments */
+    font-style: italic;
+  }
+
+
+  /* java course.css */
+
+  .java-course-container {
+    display: flex;
+    flex-direction: row;
+    font-family: Arial, sans-serif;
+    border: 1px solid #000;
+  }
+  
+  .java-topic-list {
+    width: 30%;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f7f7f7;
+  }
+  
+  .java-topic-item {
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 5px;
+    font-weight: bold;
+  }
+  
+  .java-topic-item:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .java-topic-explanation {
+    width: 70%;
+    padding: 20px;
+  }
+  
+  .java-module-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .java-module-content ul {
+    margin: 0;
+    padding: 0 0 10px 20px;
+  }
+  
+  .java-module-content li {
+    list-style: disc;
+    margin-bottom: 5px;
+  }
+  
+  .java-example {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: "Courier New", Courier, monospace;
+    color: #333;
+    margin-top: 10px;
+  }
+  
+  .java-example .keyword {
+    color: #d73a49; /* Red for keywords like public, class, void */
+    font-weight: bold;
+  }
+  
+  .java-example .class-name {
+    color: #6f42c1; /* Purple for class names */
+  }
+  
+  .java-example .method-name {
+    color: #005cc5; /* Blue for method names */
+  }
+  
+  .java-example .string {
+    color: #032f62; /* Dark blue for strings */
+  }
+  
+  .java-example .comment {
+    color: #6a737d; /* Grey for comments */
+    font-style: italic;
+  }
+  
+  .java-course-container {
+    display: flex;
+  }
+  
+  .java-topic-list {
+    width: 30%;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+  }
+  
+  .java-topic-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+    transition: background-color 0.3s;
+  }
+  
+  .java-topic-item:hover,
+  .java-topic-active {
+    background-color: #e0e0e0;
+    font-weight: bold;
+  }
+  
+  .java-topic-explanation {
+    width: 70%;
+    padding: 20px;
+  }
+  
+  .java-module-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .java-module-content {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .java-example {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    overflow-x: auto;
+  }
+  
+  .keyword {
+    color: #d73a49;
+    font-weight: bold;
+  }
+  
+  .class-name {
+    color: #6f42c1;
+    font-weight: bold;
+  }
+  
+  .method-name {
+    color: #005cc5;
+  }
+  
+  .string {
+    color: #032f62;
+  }
+  
+  .comment {
+    color: #6a737d;
+    font-style: italic;
+  }
+  

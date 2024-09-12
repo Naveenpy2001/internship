@@ -1,0 +1,341 @@
+.registration-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 20px;
+  }
+
+  .webinar-content {
+    width:100%;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+  }
+
+  .webinar-content h2 {
+    color: #0073e6;
+    font-size:36px;
+    padding:10px 10px
+  }
+
+  .webinar-content h3 {
+    margin-top: 20px;
+    color:red;
+    font-size:26px;
+  }
+
+  .webinar-content h4 {
+    margin-top: 20px;
+    color:red;
+    font-size:26px;
+  }
+
+
+  .webinar-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    font-weight:400;
+  }
+  .unorderTopic > li {
+    font-weight:400;
+    padding: 5px 0;
+  }
+  .webinar-content > p {
+  font-weight:400;
+  line-height:25px;
+  padding:10px 30px;
+  }
+
+  .registration-form {
+    width:40%;
+
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  .formConatinerWebinar{
+  padding: 20px;
+    background: rgb(0,61,138);
+background: linear-gradient(270deg, rgba(0,61,138,1) 0%, rgba(127,181,255,1) 100%);
+border-radius:3px;
+  }
+
+  .registration-form h2 {
+    color: #0073e6;
+    font-size: 22px;
+    padding :10px 5px;
+    color:#fff;
+  }
+
+  .registration-form form div {
+    margin-bottom: 15px;
+  }
+
+
+  .registration-form form input,
+  .registration-form form select {
+
+    padding: 8px;
+    border: 1px solid #000;
+    border-radius: 5px;
+  }
+
+  .registration-form form button {
+    padding: 10px 20px;
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .registration-form form button:hover {
+    background-color: #005bb5;
+  }
+  .accept-all{
+    display:flex;
+    align-items:center;
+    justify-content: flex-start;
+  }
+  .accept-all > .checkInput {
+    display:block;
+    width:8%;
+    margin:0;
+  }
+  .condition{
+  font-size:13px;
+  color:darkblue;
+  }
+
+  .webinarForm{
+  padding: 45px 40px;
+  border: 1px solid #ccc;
+  background:#fff;
+  border-radius:3px;
+  }
+.checkBoxFor{
+display:flex;
+
+}
+.inputCheckBox{
+    width:4%;
+    margin:0 5px;
+}
+.acceptTerm{
+    font-size:12px;
+    color:#fff;
+}
+  @media screen and (min-width:310px) and (max-width:1080px) {
+    .registration-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    padding:0;
+    flex-direction: column-reverse;
+}
+.registration-form {
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: rgb(0, 61, 138);
+    background: linear-gradient(270deg, rgba(0, 61, 138, 1) 0%, rgba(127, 181, 255, 1) 100%);
+}
+.webinarForm {
+    padding: 41px 15px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 3px;
+}
+.registration-form h2 {
+    color: #0073e6;
+    font-size: 15px;
+    padding: 10px 5px;
+    color: #fff;
+}
+
+.condition {
+    font-size: 9px;
+    color:darkblue;
+}
+
+
+  }
+
+
+
+
+/* Overall layout */
+.webinar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f4f4f4;
+}
+
+/* Webinar content section */
+.webinar-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.webinar-content h2 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.webinar-content p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.webinar-content h3 {
+  font-size: 24px;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.webinar-content ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.webinar-content li {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Webinar banner */
+.webinar-banner {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+/* Registration form section */
+.webinar-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.webinar-form h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.webinar-form .error-message {
+  color: red;
+  margin-bottom: 15px;
+}
+
+.webinar-form input,
+.webinar-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.webinar-form input[type="checkbox"] {
+  width: auto;
+}
+
+.webinar-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3399cc;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.webinar-form button:hover {
+  background-color: #287ba4;
+}
+
+/* Payment section */
+.webinar-payment-section {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.webinar-payment-section h3 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.webinar-payment-section label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.webinar-payment-section input {
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.webinar-payment-section button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3399cc;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.webinar-payment-section button:hover {
+  background-color: #287ba4;
+}
+
+/* Success message */
+.webinar-success {
+  background-color: #e0f7e9;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.webinar-success h3 {
+  color: #28a745;
+  margin-bottom: 20px;
+}
+
+.webinar-success p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+

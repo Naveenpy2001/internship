@@ -1,0 +1,22 @@
+.java-compiler-container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .java-compiler-container h2 {
+    color: #333;
+  }
+  
+  .java-compiler-container p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .java-compiler-embed iframe {
+    border: none;
+    width: 100%;
+    height: 500px;
+  }
+  
