@@ -176,7 +176,7 @@ const InternshipPage = () => {
           <a href="/Register" className="s-links animation">
             Registration
           </a>
-          <a href="/studentLogin" className="s-links animation">
+          <a href="/Login" className="s-links animation">
             Student Login
           </a>
           <a href="/CorporateLogin" className="s-links animation">

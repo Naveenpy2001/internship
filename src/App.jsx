@@ -8,6 +8,8 @@ import Java from './components/Java';
 import Python from './components/Python';
 import Profile from './components/Profile';
 import Webinar from './components/Webinar';
+import WebinarProfile from './components/WebinarProfile';
+import Login from './components/Login';
 
 export default function App() {
   return (
@@ -17,8 +19,10 @@ export default function App() {
       <Route path='/Register' element={<Register />} />
       <Route path='/Java' element={<Java />} />
       <Route path='/Python' element={<Python />} />
-      <Route path='/Profile' element={<Profile />} />
+      <Route path='/Profile/:userId' element={<Profile />} />
       <Route path='/Webinar' element={<Webinar />} />
+      <Route path="/webinar-profile/:email" element={<WebinarProfile />} />
+      <Route path='/Login' element={<Login />} />
     </Routes>
     </>
   )
