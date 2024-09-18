@@ -1,36 +1,35 @@
+// Profile.js
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const Profile = () => {
-  const { userId } = useParams();
-  const [userData, setUserData] = useState(null);
+  const [profileData, setProfileData] = useState(null);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchProfile = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/user/${userId}/`);
-        setUserData(response.data);
+        const response = await axios.get('http://127.0.0.1:8000/api/profile/');
+        setProfileData(response.data);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error('Error fetching profile data:', error);
       }
     };
 
-    fetchUserData();
-  }, [userId]);
+    fetchProfile();
+  }, []);
 
   return (
-    <div>
-      <h1>Profile Page</h1>
-      {userData ? (
+    <div className="profile">
+      <h2>Profile</h2>
+      {profileData ? (
         <div>
-          <p><strong>Name:</strong> {userData.first_name} {userData.last_name}</p>
-          <p><strong>Email:</strong> {userData.email}</p>
-          <p><strong>Phone:</strong> {userData.phone}</p>
-          <p><strong>Address:</strong> {userData.address}, {userData.city}, {userData.state}, {userData.pincode}</p>
-          <p><strong>Date of Birth:</strong> {userData.date_of_birth}</p>
-          <p><strong>Gender:</strong> {userData.gender}</p>
-          <p><strong>Course:</strong> {userData.course}</p>
+          <p><strong>Name:</strong> {profileData.first_name} {profileData.last_name}</p>
+          <p><strong>Email:</strong> {profileData.email}</p>
+          <p><strong>Phone:</strong> {profileData.phone}</p>
+          <p><strong>Address:</strong> {profileData.address}</p>
+          <p><strong>Course:</strong> {profileData.course}</p>
+          <p><strong>Date of Birth:</strong> {profileData.date_of_birth}</p>
+          <p><strong>Gender:</strong> {profileData.gender}</p>
         </div>
       ) : (
         <p>Loading...</p>
