@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Profile = () => {
-  const [profileData, setProfileData] = useState(null);
+  const [user, setProfileData] = useState(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -19,21 +19,17 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="profile">
-      <h2>Profile</h2>
-      {profileData ? (
-        <div>
-          <p><strong>Name:</strong> {profileData.first_name} {profileData.last_name}</p>
-          <p><strong>Email:</strong> {profileData.email}</p>
-          <p><strong>Phone:</strong> {profileData.phone}</p>
-          <p><strong>Address:</strong> {profileData.address}</p>
-          <p><strong>Course:</strong> {profileData.course}</p>
-          <p><strong>Date of Birth:</strong> {profileData.date_of_birth}</p>
-          <p><strong>Gender:</strong> {profileData.gender}</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div className="profile-container">
+      <h2 className="profile-title">Welcome, {user.firstname} {user.lastname}!</h2>
+      <div className="profile-details">
+        <p className="profile-info"><strong>Email:</strong> {user.email}</p>
+        <p className="profile-info"><strong>Phone:</strong> {user.phone}</p>
+        <p className="profile-info"><strong>Date of Birth:</strong> {user.date_of_birth}</p>
+        <p className="profile-info"><strong>Gender:</strong> {user.gender}</p>
+        <p className="profile-info"><strong>Address:</strong> {user.address}</p>
+        <p className="profile-info"><strong>Course Enrolled:</strong> {user.course}</p>
+        <p className="profile-info"><strong>Amount Paid:</strong> ₹{user.amount}</p>
+      </div>
     </div>
   );
 };

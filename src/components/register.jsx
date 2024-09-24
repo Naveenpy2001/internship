@@ -1,7 +1,9 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import './course.css'; // Ensure this CSS file contains styles for highlighting and borders.
+import './course.css'; 
+import { useNavigate } from 'react-router-dom';
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 const Register = () => {
   const [currentTab, setCurrentTab] = useState(1);
@@ -20,6 +22,9 @@ const Register = () => {
     course: '',
     amount: '',
   });
+
+  const navigate = useNavigate();
+
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [userExists, setUserExists] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Track loading state
@@ -81,10 +86,13 @@ const initiatePayment = async () => {
       return;
   }
 
+  
+
   if (!formData.amount) {
       alert('Please enter an amount.');
       return;
   }
+
 
   setIsLoading(true);
 
@@ -112,6 +120,9 @@ const initiatePayment = async () => {
                       });
                       alert('Payment successful!');
                       setPaymentSuccess(true);
+                      if (paymentSuccess) {
+                        navigate('/profile', { state: { user: formData } }); // Navigate to profile page
+                      }
                       console.log("payment successfull")
                       // Optionally, navigate to a success page or home page
                   } catch (error) {
@@ -146,7 +157,19 @@ const initiatePayment = async () => {
 
 
   return (
+    <>
+<main className="animation" style={{display:'flex',alignItems:'center'}}>
+        <a href="/" className="pages">
+        Home 
+        </a> 
+           <MdOutlineKeyboardArrowRight />
+        <span className="pages">
+          Internship
+        </span>
+      </main>
     <div className="div">
+
+
       <div className="register-form-container">
         <div className="flexCenter flexDir">
           <p>Fill out the form carefully for registration</p>
@@ -341,6 +364,7 @@ const initiatePayment = async () => {
       )}
       </div>
     </div>
+    </>
   );
 };
 
