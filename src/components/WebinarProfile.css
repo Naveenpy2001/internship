@@ -2,10 +2,12 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
+
   }
   
   .webinar-profile h2 {
     text-align: center;
+    padding: 10px 0;
   }
   
   .webinar-profile p {

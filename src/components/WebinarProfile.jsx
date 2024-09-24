@@ -25,16 +25,16 @@ const WebinarProfile = () => {
     fetchUserDetails();
   }, [email]);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading...</p>;
+  // }
 
-  if (error) {
-    return <p>{error}</p>;
-  }
+  // if (error) {
+  //   return <p>{error}</p>;
+  // }
 
   return (
-    <div className="webinar-profile-container">
+    <div className="webinar-profile">
       <h2>Webinar Profile</h2>
       <div className="profile-details">
         <h3>Welcome, {userDetails.name}!</h3>
@@ -48,7 +48,7 @@ const WebinarProfile = () => {
         {userDetails.certificate_url ? (
           <div className="certificate-download">
             <a href={`http://127.0.0.1:8000/api/generate-certificate/${email}/`} download>
-          <button>Download Certificate</button>
+          <button className='btn-primary'>Download Certificate</button>
         </a>
           </div>
         ) : (
