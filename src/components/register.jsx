@@ -43,7 +43,7 @@ const Register = () => {
     setIsLoading(true);
 
     try {
-        const response = await axios.post('http://localhost:8080/save', {
+        const response = await axios.post('https://internship.tsaritservices.com/save', {
             email: formData.email,
             firstname: formData.firstname,
             lastname: formData.lastname,
@@ -89,7 +89,7 @@ const initiatePayment = async () => {
   setIsLoading(true);
 
   try {
-      const response = await axios.post('http://localhost:8080/create-order', {
+      const response = await axios.post('https://internship.tsaritservices.com/create-order', {
           amount: formData.amount
       });
       console.log('Response from backend:', response.data); 
@@ -104,7 +104,7 @@ const initiatePayment = async () => {
               auto_capture: true,
               handler: async function (response) {
                   try {
-                      await axios.post('http://localhost:8080/verify-payment', {
+                      await axios.post('https://internship.tsaritservices.com/verify-payment', {
                           order_id: response.order_id,
                           payment_id: response.payment_id,
                           signature: response.signature,
