@@ -5,17 +5,23 @@ import './WebinarProfile.css'; // Assuming you have styling for profile
 
 const WebinarProfile = () => {
   const { email } = useParams(); // Get the email from the route params
-  const [userDetails, setUserDetails] = useState({});
+  const [userDetails, setUserDetails] = useState(null); // Initially null to handle loading states better
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); // Add error state
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get(`https://internship.tsaritservices.com/findByEmail/${email}`);
-        setUserDetails(response.data);
+        const response = await axios.get(`http://localhost:8081/findByEmail/${email}`);
+        console.log('API Response:', response.data); // Log the API response to inspect the structure
+
+        // Since the API response is an array, grab the first object in the array
+        if (response.data.length > 0) {
+          setUserDetails(response.data[0]);
+        } else {
+          setError('No user details found.');
+        }
         setLoading(false);
-        console.log(response.data)
       } catch (error) {
         setError('Error fetching user details.');
         setLoading(false);
@@ -28,40 +34,42 @@ const WebinarProfile = () => {
     }
   }, [email]);
 
-  // if (loading) {
-  //   return <p>Loading...</p>;
-  // }
+  // Handle loading state
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-  // if (error) {
-  //   return <p>{error}</p>;
-  // }
+  // Handle error state
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  // If userDetails is still null or undefined
+  if (!userDetails) {
+    return <p>No user details found for this email.</p>;
+  }
 
   return (
     <div className="webinar-profile">
       <h2>Webinar Profile</h2>
       <div className="profile-details">
-        <h3>Welcome, {userDetails.name}!</h3>
-        <p><strong>Email:</strong> {userDetails.email}</p>
-        <p><strong>Course:</strong> {userDetails.course}</p>
-        <p><strong>Amount Paid:</strong> ₹{userDetails.amount}</p>
-        <p><strong>Webinar Start Time:</strong> {new Date(userDetails.webinar_start_time).toLocaleString()}</p>
-        <p><strong>Registration Date:</strong> {new Date(userDetails.registration_date).toLocaleString()}</p>
+        <h3>Welcome, {userDetails.name || 'User'}!</h3>
+        <p><strong>Email:</strong> {userDetails.email || 'N/A'}</p>
+        <p><strong>Course:</strong> {userDetails.course || 'N/A'}</p>
+        <p><strong>Amount Paid:</strong> ₹{userDetails.amount || 'N/A'}</p>
+        <p><strong>Webinar Start Time:</strong> {userDetails.webinar_start_time ? new Date(userDetails.webinar_start_time).toLocaleString() : 'N/A'}</p>
+        <p><strong>Registration Date:</strong> {userDetails.registration_date ? new Date(userDetails.registration_date).toLocaleString() : 'N/A'}</p>
 
         {/* Download Certificate */}
-        {userDetails.certificate_url ? (
+        {/* {userDetails.certificate_url ? ( */}
           <div className="certificate-download">
-            <a href={`http://127.0.0.1:8000/api/generate-certificate/${email}/`} download>
-<<<<<<< HEAD
-          <button className='btn-primary'>Download Certificate</button>
-        </a>
-=======
-              <button>Download Certificate</button>
+            <a href={`http://localhost:8081/api/generate-certificate?email=${userDetails.email}`} download>
+              <button className="btn-primary">Download Certificate</button>
             </a>
->>>>>>> c1f4b432fe4cce39fe267c101872895decd5cbea
           </div>
-        ) : (
+        {/* ) : (
           <p>Certificate not available yet.</p>
-        )}
+        )} */}
       </div>
     </div>
   );
