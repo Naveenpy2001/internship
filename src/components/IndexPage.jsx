@@ -84,13 +84,14 @@ const InternshipPage = () => {
     <div>
       <header></header>
 
-      <main className="animation">
-        <a href="https://www.tsaritservices.com" className="pages">
-          Home  <MdOutlineKeyboardArrowRight />
+      <main className="animation" style={{display:'flex',alignItems:'center'}}>
+        <a href="/" className="pages">
+        Home 
         </a> 
-        <a href="/internshipPage" className="pages">
+           <MdOutlineKeyboardArrowRight />
+        <span className="pages">
           Internship
-        </a>
+        </span>
       </main>
 
       <section className="sec-1 animation">
@@ -176,12 +177,12 @@ const InternshipPage = () => {
           <a href="/Register" className="s-links animation">
             Registration
           </a>
-          <a href="/Login" className="s-links animation">
+          {/* <a href="/Login" className="s-links animation">
             Student Login
           </a>
           <a href="/CorporateLogin" className="s-links animation">
             Corporate Hiring Login
-          </a>
+          </a> */}
           <span
             className="s-links animation"
             onClick={() => showForm("formContainer")}
