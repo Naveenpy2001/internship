@@ -25,7 +25,7 @@ const Webinar = () => {
     const checkRegistrationStatus = async () => {
       if (formData.email) {
         try {
-          const response = await axios.get(`http://127.0.0.1:8000/api/check-registration-status/${formData.email}/`);
+          const response = await axios.get(`https://internship.tsaritservices.com/findByEmail/${formData.email}`);
           if (response.data.registered) {
             if (response.data.payment_status) {
               setPaymentSuccess(true);
@@ -46,8 +46,9 @@ const Webinar = () => {
 
   const fetchUserDetails = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/get-user-details/${formData.email}/`);
+      const response = await axios.get(`https://internship.tsaritservices.com/findByEmail/${formData.email}`);
       setUserDetails(response.data);
+      
     } catch (error) {
       console.error('Error fetching user details:', error);
     }
@@ -62,38 +63,60 @@ const Webinar = () => {
   };
 
   const handleRazorpayPayment = async () => {
-    const options = {
-      key: 'rzp_live_oRtGw5y3RbD9MH', // Replace with your Razorpay Key ID
-      amount: formData.amount * 100, // Amount in paise
-      currency: 'INR',
-      name: 'Webinar Registration',
-      description: 'Payment for webinar registration',
-      handler: async (response) => {
-        try {
-          const paymentResponse = await axios.post('http://127.0.0.1:8000/api/payment-success/', {
-            email: formData.email,
-            amount: formData.amount,
-          });
-          if (paymentResponse.status === 200) {
-            setPaymentSuccess(true);
-            setWebinarStartTime(paymentResponse.data.start_date);
-            fetchUserDetails();
-            setPaymentStatus(null);
-          }
-        } catch (error) {
-          console.error('Payment failed:', error);
-          setErrorMessage('Payment confirmation failed.');
-        }
-      },
-      prefill: {
-        name: formData.name,
-        email: formData.email,
-        contact: formData.phone,
-      },
-      theme: {
-        color: '#3399cc',
-      },
-    };
+    try {
+      const response = await axios.post('https://internship.tsaritservices.com/create-order-webinar', {
+          amount: formData.amount
+      });
+      console.log('Response from backend:', response.data); 
+      if (response.status === 200) {
+          const options = {
+              key: 'rzp_live_oRtGw5y3RbD9MH',
+              amount: formData.amount * 100 ,
+              currency: 'INR',
+              name: 'TSAR-IT',
+              description: 'Test Transaction',
+              order_id: response.data.order_id,
+              auto_capture: true,
+              handler: async function (response) {
+                  try {
+                      await axios.post('https://internship.tsaritservices.com/verify-payment-webinar', {
+                          order_id: response.order_id,
+                          payment_id: response.payment_id,
+                          signature: response.signature,
+                          amount: response.amount
+                      });
+                      alert('Payment successful!');
+                      setPaymentSuccess(true);
+                      console.log("payment successfull")
+                      // Optionally, navigate to a success page or home page
+                  } catch (error) {
+                      console.error('Payment verification failed:', error);
+                      alert('Payment verification failed.');
+                  }
+              },
+              prefill: {
+                  name: formData.firstname,
+                  email: formData.email,
+                  contact: formData.phone
+              },
+              theme: {
+                  color: '#3399cc'
+              }
+          };
+
+          const rzp = new window.Razorpay(options);
+          rzp.open();
+      } else {
+          console.error('Unexpected status code from order creation:', response.status);
+          alert('Failed to create payment order.');
+      }
+  } catch (error) {
+      console.error('Error creating order:', error);
+      alert('Failed to initiate payment.');
+      
+  } finally {
+      setIsLoading(false);
+  }
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
@@ -102,10 +125,11 @@ const Webinar = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/register/', formData);
-      if (response.status === 201) {
+      const response = await axios.post('https://internship.tsaritservices.com/webinarsave', formData);
+      if (response.status === 200) {
         setPaymentStatus('pending');
       }
+      console.log("saved successfull");
     } catch (error) {
       console.error('Registration failed:', error);
       setErrorMessage('Registration failed.');

@@ -12,9 +12,10 @@ const WebinarProfile = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/get-user-details/${email}/`);
+        const response = await axios.get(`https://internship.tsaritservices.com/findByEmail/${email}`);
         setUserDetails(response.data);
         setLoading(false);
+        console.log(response.data)
       } catch (error) {
         setError('Error fetching user details.');
         setLoading(false);
@@ -22,7 +23,9 @@ const WebinarProfile = () => {
       }
     };
 
-    fetchUserDetails();
+    if (email) { // Ensure the email is available before calling the API
+      fetchUserDetails();
+    }
   }, [email]);
 
   // if (loading) {
@@ -40,7 +43,7 @@ const WebinarProfile = () => {
         <h3>Welcome, {userDetails.name}!</h3>
         <p><strong>Email:</strong> {userDetails.email}</p>
         <p><strong>Course:</strong> {userDetails.course}</p>
-        <p><strong>Amount Paid:</strong> ₹{userDetails.amount_paid}</p>
+        <p><strong>Amount Paid:</strong> ₹{userDetails.amount}</p>
         <p><strong>Webinar Start Time:</strong> {new Date(userDetails.webinar_start_time).toLocaleString()}</p>
         <p><strong>Registration Date:</strong> {new Date(userDetails.registration_date).toLocaleString()}</p>
 
@@ -48,8 +51,13 @@ const WebinarProfile = () => {
         {userDetails.certificate_url ? (
           <div className="certificate-download">
             <a href={`http://127.0.0.1:8000/api/generate-certificate/${email}/`} download>
+<<<<<<< HEAD
           <button className='btn-primary'>Download Certificate</button>
         </a>
+=======
+              <button>Download Certificate</button>
+            </a>
+>>>>>>> c1f4b432fe4cce39fe267c101872895decd5cbea
           </div>
         ) : (
           <p>Certificate not available yet.</p>
