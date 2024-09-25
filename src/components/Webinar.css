@@ -73,10 +73,11 @@
 }
 
 .webinarrr-form-group label {
-  display: block;
+  display: flex;
   font-size: 16px;
   margin-bottom: 5px;
   color: #555;
+  width: 100%;
 }
 
 .webinarrr-input {
@@ -91,11 +92,12 @@
 
 .webinarrr-checkbox-group {
   display: flex;
-  align-items: center;
 }
 
 .webinarrr-checkbox {
-  margin-right: 10px;
+  margin-right: 4px;
+  width: 5%;
+  margin-left: 10px;
 }
 
 .webinarrr-accept-terms {

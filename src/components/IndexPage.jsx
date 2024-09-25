@@ -33,6 +33,7 @@ const CourseItem = ({ href, title, imgSrc, ratingCount, learnersCount, duration 
         </div>
       </div>
     </div>
+
   </a>
 );
 
@@ -272,7 +273,7 @@ const InternshipPage = () => {
           </div>
         </div>
       </section>
-
+            <hr />
       <Courses />
       <Footer />
 

@@ -91,7 +91,7 @@ const Footer = () => {
       <hr />
       <div className="footer-icons">
         <div className="footer-copy-rights">
-          <p>© TSAR IT, 2024 All rights reserved</p>
+          <p>© TSAR IT PRIVATE LIMITED, 2024 All Rights Reserved</p>
         </div>
         <div className="social-icons">
           <h2 className="footer-follow-us" style={{ fontSize: '18px' }}>
