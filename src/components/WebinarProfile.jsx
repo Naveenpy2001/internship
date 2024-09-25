@@ -98,10 +98,8 @@ const WebinarProfile = () => {
           setError('No user details found.');
         }
         setLoading(false);
-<<<<<<< HEAD
-=======
         console.log(response.data);
->>>>>>> af2756121b2804f4bdc5678d403fd2e8d095a3c4
+
       } catch (error) {
         setError('Error fetching user details.');
         setLoading(false);
@@ -130,7 +128,8 @@ const WebinarProfile = () => {
   }
 
   return (
-<<<<<<< HEAD
+    <>
+
     <div className="webinar-profile">
       <h2>Webinar Profile</h2>
       <div className="profile-details">
@@ -141,8 +140,7 @@ const WebinarProfile = () => {
         <p><strong>Webinar Start Time:</strong> {userDetails.webinar_start_time ? new Date(userDetails.webinar_start_time).toLocaleString() : 'N/A'}</p>
         <p><strong>Registration Date:</strong> {userDetails.registration_date ? new Date(userDetails.registration_date).toLocaleString() : 'N/A'}</p>
 
-        {/* Download Certificate */}
-        {/* {userDetails.certificate_url ? ( */}
+       
           <div className="certificate-download">
             <a href={`http://localhost:8081/api/generate-certificate?email=${userDetails.email}`} download>
               <button className="btn-primary">Download Certificate</button>
@@ -151,8 +149,8 @@ const WebinarProfile = () => {
         {/* ) : (
           <p>Certificate not available yet.</p>
         )} */}
-=======
-    <>
+
+    </div>
     <div className="webinarprofile-container">
       <h2 className="webinarprofile-heading">Webinar Profile</h2>
 
@@ -184,11 +182,12 @@ const WebinarProfile = () => {
         ) : (
           <p className="webinarprofile-certificate-message">Certificate not available yet.</p>
         )}
->>>>>>> af2756121b2804f4bdc5678d403fd2e8d095a3c4
+
       </div>
         
     </div>
     <center>
+      
           <a href="/">
           <button className='exploreeee'>Explore More</button>
           </a>
@@ -210,7 +209,8 @@ const WebinarProfile = () => {
 
 
       </div>
-    </>
+      </div>
+  </>
   );
 };
 

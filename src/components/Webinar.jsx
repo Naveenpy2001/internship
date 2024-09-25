@@ -69,7 +69,7 @@ const Webinar = () => {
 
   const handleRazorpayPayment = async () => {
     try {
-      const response = await axios.post('https://internship.tsaritservices.com/create-order-webinar', {
+      const response = await axios.post('http://localhost:8081/create-order-webinar', {
           amount: formData.amount
       });
       console.log('Response from backend:', response.data); 
@@ -130,7 +130,7 @@ const Webinar = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://internship.tsaritservices.com/webinarsave', formData);
+      const response = await axios.post('http://localhost:8081/webinarsave', formData);
       if (response.status === 200) {
         setPaymentStatus('pending');
       }
@@ -140,7 +140,7 @@ const Webinar = () => {
       setErrorMessage('Registration failed.');
     }
   };
-
+ 
   return (
     <>
       <main className="animation" style={{display:'flex',alignItems:'center'}}>
