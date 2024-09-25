@@ -22,7 +22,10 @@ const WebinarProfile = () => {
           setError('No user details found.');
         }
         setLoading(false);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 19880f89ed1b5fd953bb50023ae7f8c882a7a5f3
         console.log(response.data);
 
       } catch (error) {
@@ -52,6 +55,7 @@ const WebinarProfile = () => {
     return <p>No user details found for this email.</p>;
   }
 
+<<<<<<< HEAD
   
   return (<>
         <div className="webinar-profile">
@@ -74,6 +78,32 @@ const WebinarProfile = () => {
                 
 
         <div>
+=======
+  return (
+    <>
+
+    <div className="webinar-profile">
+      <h2>Webinar Profile</h2>
+      <div className="profile-details">
+        <h3>Welcome, {userDetails.name || 'User'}!</h3>
+        <p><strong>Email:</strong> {userDetails.email || 'N/A'}</p>
+        <p><strong>Course:</strong> {userDetails.course || 'N/A'}</p>
+        <p><strong>Amount Paid:</strong> ₹{userDetails.amount || 'N/A'}</p>
+        <p><strong>Webinar Start Time:</strong> {userDetails.webinar_start_time ? new Date(userDetails.webinar_start_time).toLocaleString() : 'N/A'}</p>
+        <p><strong>Registration Date:</strong> {userDetails.registration_date ? new Date(userDetails.registration_date).toLocaleString() : 'N/A'}</p>
+
+       
+          <div className="certificate-download">
+            <a href={`http://localhost:8081/api/generate-certificate?email=${userDetails.email}`} download>
+              <button className="btn-primary">Download Certificate</button>
+            </a>
+          </div>
+        {/* ) : (
+          <p>Certificate not available yet.</p>
+        )} */}
+
+    </div>
+>>>>>>> 19880f89ed1b5fd953bb50023ae7f8c882a7a5f3
     <div className="webinarprofile-container">
       <h2 className="webinarprofile-heading">Webinar Profile</h2>
 
@@ -109,7 +139,12 @@ const WebinarProfile = () => {
       </div>
         </div>
     </div>
+<<<<<<< HEAD
         <center>
+=======
+    <center>
+      
+>>>>>>> 19880f89ed1b5fd953bb50023ae7f8c882a7a5f3
           <a href="/">
           <button className='exploreeee'>Explore More</button>
           </a>
@@ -131,10 +166,16 @@ const WebinarProfile = () => {
 
 
       </div>
+<<<<<<< HEAD
     </div>
      </div>
     </>
   )
+=======
+      </div>
+  </>
+  );
+>>>>>>> 19880f89ed1b5fd953bb50023ae7f8c882a7a5f3
 };
 
 export default WebinarProfile;

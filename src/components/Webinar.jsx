@@ -293,13 +293,77 @@ const Webinar = () => {
     });
   };
 
+<<<<<<< HEAD
   // Step 1: Handle user registration
   const handleRegistrationSubmit = async (e) => {
+=======
+  const handleRazorpayPayment = async () => {
+    try {
+      const response = await axios.post('http://localhost:8081/create-order-webinar', {
+          amount: formData.amount
+      });
+      console.log('Response from backend:', response.data); 
+      if (response.status === 200) {
+          const options = {
+              key: 'rzp_live_oRtGw5y3RbD9MH',
+              amount: formData.amount * 100 ,
+              currency: 'INR',
+              name: 'TSAR-IT',
+              description: 'Test Transaction',
+              order_id: response.data.order_id,
+              auto_capture: true,
+              handler: async function (response) {
+                  try {
+                      await axios.post('https://internship.tsaritservices.com/verify-payment-webinar', {
+                          order_id: response.order_id,
+                          payment_id: response.payment_id,
+                          signature: response.signature,
+                          amount: response.amount
+                      });
+                      alert('Payment successful!');
+                      setPaymentSuccess(true);
+                      console.log("payment successfull")
+                      // Optionally, navigate to a success page or home page
+                  } catch (error) {
+                      console.error('Payment verification failed:', error);
+                      alert('Payment verification failed.');
+                  }
+              },
+              prefill: {
+                  name: formData.firstname,
+                  email: formData.email,
+                  contact: formData.phone
+              },
+              theme: {
+                  color: '#3399cc'
+              }
+          };
+
+          const rzp = new window.Razorpay(options);
+          rzp.open();
+      } else {
+          console.error('Unexpected status code from order creation:', response.status);
+          alert('Failed to create payment order.');
+      }
+  } catch (error) {
+      console.error('Error creating order:', error);
+      alert('Failed to initiate payment.');
+      
+  } finally {
+      setIsLoading(false);
+  }
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
+
+  const handleSubmit = async (e) => {
+>>>>>>> 19880f89ed1b5fd953bb50023ae7f8c882a7a5f3
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await axios.post('https://internship.tsaritservices.com/webinarsave', formData);
+      const response = await axios.post('http://localhost:8081/webinarsave', formData);
       if (response.status === 200) {
         setIsRegistered(true);  // Set registration flag
         alert('Registration successful! Please proceed to payment.');
@@ -374,7 +438,7 @@ const Webinar = () => {
       setIsLoading(false);
     }
   };
-
+ 
   return (
     <>
       <main className="animation" style={{display:'flex', alignItems:'center'}}>
