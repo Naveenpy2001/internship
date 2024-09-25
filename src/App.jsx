@@ -11,6 +11,8 @@ import Webinar from './components/Webinar';
 import WebinarProfile from './components/WebinarProfile';
 import Login from './components/Login';
 
+import Dashboard from './components/Dashboard';
+
 export default function App() {
   return (
     <>
@@ -19,10 +21,11 @@ export default function App() {
       <Route path='/Register' element={<Register />} />
       <Route path='/Java' element={<Java />} />
       <Route path='/Python' element={<Python />} />
-      <Route path='/Profile/:userId' element={<Profile />} />
+      <Route path='/Profile' element={<Profile />} />
       <Route path='/Webinar' element={<Webinar />} />
       <Route path="/webinar-profile/:email" element={<WebinarProfile />} />
       <Route path='/Login' element={<Login />} />
+      <Route path='/Dashboard' element={<Dashboard />} />
     </Routes>
     </>
   )

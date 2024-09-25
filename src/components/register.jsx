@@ -5,6 +5,10 @@ import './course.css';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
+import TSARIT from '../media/TSAR-IT.png';
+
+import Footer from '../Footer';
+
 const Register = () => {
   const [currentTab, setCurrentTab] = useState(1);
   const [isRegistered, setIsRegistered] = useState(false); // Track registration success
@@ -167,16 +171,21 @@ const initiatePayment = async () => {
           Internship
         </span>
       </main>
-    <div className="div">
+    <div className="divFormRegister">
 
 
       <div className="register-form-container">
-        <div className="flexCenter flexDir">
-          <p>Fill out the form carefully for registration</p>
-        </div>
 
+        <center>
+          <img src={TSARIT} alt="TSAR-IT" style={{width:'30%'}}/>
+        </center>
+        <br />
+        <div className="flexCenter flexDir">
+          <p>Fill Out The Form Carefully For Registration</p>
+        </div>
+        <br />
         <div className="step-indicator">
-          <p>Step {currentTab} of {isRegistered ? 2 : 1}</p>
+          <p>Step {currentTab} of {isRegistered ? 2 : 2}</p>
         </div>
 
         {userExists && <p className="error-message">User already registered. Please log in.</p>}
@@ -184,21 +193,20 @@ const initiatePayment = async () => {
 
         {currentTab === 1 && (
           <div className="form-sec-1">
-            <h3>Student Information</h3>
             <div className="flexCenter">
               <div className="block">
-                <label htmlFor="firstname">First Name</label>
+                <label className="inputLabel" htmlFor="firstname">First Name :</label>
                 <input
                   type="text"
                   name="firstname"
                   id="firstname"
                   value={formData.firstname}
                   onChange={handleChange}
-                  required
+                  required='true'
                 />
               </div>
               <div className="block">
-                <label htmlFor="lastname">Last Name</label>
+                <label className="inputLabel" htmlFor="lastname">Last Name :</label>
                 <input
                   type="text"
                   name="lastname"
@@ -211,7 +219,7 @@ const initiatePayment = async () => {
             </div>
             <div className="flexCenter">
               <div className="block">
-                <label htmlFor="email">Email</label>
+                <label className="inputLabel" htmlFor="email">Email :</label>
                 <input
                   type="email"
                   name="email"
@@ -222,7 +230,7 @@ const initiatePayment = async () => {
                 />
               </div>
               <div className="block">
-                <label htmlFor="phone">Phone</label>
+                <label className="inputLabel" htmlFor="phone">Phone No. :</label>
                 <input
                   type="text"
                   name="phone"
@@ -235,9 +243,9 @@ const initiatePayment = async () => {
             </div>
 
             {/* Date of Birth Section */}
-            <div className="flexCenter">
               <div className="block">
-                <label htmlFor="date_of_birth_day">Date of Birth</label>
+                <label className="inputLabel" htmlFor="date_of_birth_day">Date of Birth :</label>
+            <div className="flexCenter">
                 <select
                   name="date_of_birth_day"
                   id="date_of_birth_day"
@@ -245,7 +253,7 @@ const initiatePayment = async () => {
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Day</option>
+                  <option value="">Day :</option>
                   {[...Array(31)].map((_, i) => (
                     <option key={i + 1} value={i + 1}>{i + 1}</option>
                   ))}
@@ -257,7 +265,7 @@ const initiatePayment = async () => {
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Month</option>
+                  <option value="">Month :</option>
                   {[...Array(12)].map((_, i) => (
                     <option key={i + 1} value={i + 1}>{i + 1}</option>
                   ))}
@@ -269,20 +277,24 @@ const initiatePayment = async () => {
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Year</option>
+                  <option value="">Year :</option>
                   {[...Array(100)].map((_, i) => (
                     <option key={i} value={2023 - i}>{2023 - i}</option>
                   ))}
                 </select>
               </div>
-              <div className="block">
-                <label htmlFor="gender">Gender</label>
+              
+            </div>
+           <div className="flexCenter">
+           <div className="block">
+                <label className="inputLabel"  htmlFor="gender">Gender :</label>
                 <select
                   name="gender"
                   id="gender"
                   value={formData.gender}
                   onChange={handleChange}
                   required
+                  
                 >
                   <option value="">Select Gender</option>
                   <option value="male">Male</option>
@@ -290,10 +302,8 @@ const initiatePayment = async () => {
                   <option value="other">Other</option>
                 </select>
               </div>
-            </div>
-
             <div className="block">
-              <label htmlFor="course">Select Course</label>
+              <label className="inputLabel" htmlFor="course">Select Course :</label>
               <select
                 name="course"
                 id="course"
@@ -301,14 +311,15 @@ const initiatePayment = async () => {
                 onChange={handleChange}
                 required
               >
-                <option value="" disabled>Select Course</option>
+                <option value="" disabled>Course</option>
                 <option value="java_fullstack">Java FullStack</option>
                 <option value="python">Python</option>
                 <option value="web_development">Web Development</option>
               </select>
             </div>
+           </div>
             <div className="block">
-              <label htmlFor="address">Full Address</label>
+              <label className="inputLabel" htmlFor="address">Full Address :</label>
               <textarea
                 name="address"
                 id="address"
@@ -318,13 +329,22 @@ const initiatePayment = async () => {
               />
             </div>
             <div className="terms-section">
-              <input
+              {/* <input
                 type="checkbox"
                 id="terms"
                 checked={isTermsChecked}
+                className='checkBox-Terms'
                 onChange={(e) => setIsTermsChecked(e.target.checked)}
-              />
-              <label htmlFor="terms">I accept the Terms and Conditions</label>
+              /> */}
+
+<label class="checkbox-container">
+    <input class="custom-checkbox"
+     checked={isTermsChecked}
+     onChange={(e) => setIsTermsChecked(e.target.checked)}
+     type="checkbox" />
+    <span class="checkmark"></span>
+</label>
+              <label className="inputLabel" htmlFor="terms">I accept the Terms and Conditions</label>
             </div>
             <button type="submit" className="register-btn" onClick={handleSubmit} disabled={isLoading}>
               {isLoading ? 'Submitting...' : 'Submit'}
@@ -336,7 +356,7 @@ const initiatePayment = async () => {
             <div className="form-sec-2">
               <h3>Payment Information</h3>
               <div className="block">
-                <label htmlFor="amount">Enter Payment Amount</label>
+                <label className="inputLabel" htmlFor="amount">Enter Payment Amount</label>
                 <input
                   type="number"
                   name="amount"
@@ -364,6 +384,7 @@ const initiatePayment = async () => {
       )}
       </div>
     </div>
+    <Footer />
     </>
   );
 };
