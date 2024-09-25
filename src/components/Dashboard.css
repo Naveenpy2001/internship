@@ -1,79 +1,78 @@
 .dsh-dashboard-container {
-    display: flex;
-    height: 100vh;
-    background-color: #f5f5f5;
-  }
-  
-  .dsh-sidebar {
-    width: 250px;
-    background-color: #2c3e50;
+  display: flex;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .dsh-tab-button {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 1px;
-    background-color: #34495e;
-    color: white;
-    border: none;
+.dsh-sidebar {
+  width: 250px;
+  background-color: #2c3e50;
 
-    text-align: center;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
-  
-  .dsh-tab-button:hover {
-    background-color: #1abc9c;
-  }
-  
-  .dsh-active {
-    background-color: #1abc9c;
-  }
-  
-  .dsh-content {
-    flex: 1;
-    padding: 20px;
-    background-color: #ecf0f1;
-    overflow-y: auto;
-  }
-  
-  .dsh-title {
-    font-size: 24px;
-    color: #2c3e50;
-    margin-bottom: 20px;
-  }
-  
-  .dsh-subtitle {
-    font-size: 18px;
-    margin-top: 20px;
-    color: #2980b9;
-  }
-  
-  .dsh-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .dsh-table-header {
-    background-color: #34495e;
-    color: white;
-    padding: 10px;
-    text-align: left;
-  }
-  
-  .dsh-table-data {
-    background-color: white;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .dsh-table-data:last-child {
-    border-bottom: none;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dsh-tab-button {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 1px;
+  background-color: #34495e;
+  color: white;
+  border: none;
+
+  text-align: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.dsh-tab-button:hover {
+  background-color: #1abc9c;
+}
+
+.dsh-active {
+  background-color: #1abc9c;
+}
+
+.dsh-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #ecf0f1;
+  overflow-y: auto;
+}
+
+.dsh-title {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.dsh-subtitle {
+  font-size: 18px;
+  margin-top: 20px;
+  color: #2980b9;
+}
+
+.dsh-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.dsh-table-header {
+  background-color: #34495e;
+  color: white;
+  padding: 10px;
+  text-align: left;
+}
+
+.dsh-table-data {
+  background-color: white;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.dsh-table-data:last-child {
+  border-bottom: none;
+}
