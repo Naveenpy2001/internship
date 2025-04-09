@@ -1,0 +1,238 @@
+/* Slider Container */
+.cs-slider-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  position: relative;
+}
+
+.cs-slider-title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.cs-slider-subtitle {
+  text-align: center;
+  color: #7f8c8d;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+/* Slider Wrapper */
+.cs-slider-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation Buttons */
+.cs-slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  color: #2c3e50;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.cs-slider-btn:hover {
+  background: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.cs-prev-btn {
+  left: 10px;
+}
+
+.cs-next-btn {
+  right: 10px;
+}
+
+.iconSlide-l{
+    margin-right: 5px;
+}
+.iconSlide-r{
+    margin-left: 5px;
+}
+
+/* Slider Track */
+.cs-slider-track {
+  display: flex;
+  height: 400px;
+  width: 100%;
+}
+
+/* Individual Slide */
+.cs-slide {
+  min-width: 100%;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+
+.cs-slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+}
+
+.cs-slide-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5rem;
+  max-width: 600px;
+}
+
+.cs-slide-category {
+  background: #3498db;
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  align-self: flex-start;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cs-slide-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.cs-slide-desc {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.cs-slide-btn {
+  align-self: flex-start;
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cs-slide-btn:hover {
+  background: white;
+  color: #2c3e50;
+}
+
+/* Slider Dots */
+.cs-slider-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  gap: 0.8rem;
+}
+
+.cs-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: none;
+  background-color: #bdc3c7;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cs-dot.active {
+  background-color: #3498db;
+  transform: scale(1.2);
+}
+
+.cs-dot:hover {
+  background-color: #3498db;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .cs-slider-track {
+    height: 350px;
+  }
+  
+  .cs-slide-content {
+    padding: 0 3rem;
+  }
+  
+  .cs-slide-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cs-slider-track {
+    height: 300px;
+  }
+  
+  .cs-slide-content {
+    padding: 0 2rem;
+    max-width: 100%;
+  }
+  
+  .cs-slide-title {
+    font-size: 1.5rem;
+  }
+  
+  .cs-slide-desc {
+    font-size: 1rem;
+  }
+  
+  .cs-slider-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .cs-slider-track {
+    height: 250px;
+  }
+  
+  .cs-slide-content {
+    padding: 0 1.5rem;
+  }
+  
+  .cs-slide-title {
+    font-size: 1.3rem;
+  }
+  
+  .cs-slider-title {
+    font-size: 1.5rem;
+  }
+  
+  .cs-slider-subtitle {
+    font-size: 1rem;
+  }
+}

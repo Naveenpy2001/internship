@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+
+}
+
+
+/* animations */
+
+.fade-left{
+  transform: translateX(0);
+  opacity: 1;
+  animation: fadeLeft .3s ease-in-out;
+}
+
+@keyframes fadeLeft{
+  from {
+    transform: translateX(-100px);
+  opacity: 0;
+  }
+  to{
+    transform: translateX(0);
+  opacity: 1;
+  }
+}
+
+
+.fade-right{
+  transform: translateX(0);
+  opacity: 1;
+  animation: fadeRight .3s linear;
+}
+
+@keyframes fadeRight{
+  from {
+    transform: translateX(100px);
+  opacity: 0;
+  }
+  to{
+    transform: translateX(0);
+  opacity: 1;
+  }
+}
+
+
+.fade-top{
+  transform: translateY(0);
+  opacity: 1;
+  animation: fadeTop .6s ease-in-out;
+}
+
+@keyframes fadeTop{
+  from {
+    transform: translateY(-100px);
+  opacity: 0;
+  }
+  to{
+    transform: translateY(0);
+  opacity: 1;
+  }
+}
+.hero-stats{
+  overflow: hidden;
+}
+.fade-bottom{
+  transform: translateY(0);
+  opacity: 1;
+  animation: fadeBottom .6s ease-in-out;
+  overflow: hidden;
+}
+
+@keyframes fadeBottom{
+  from {
+    transform: translateY(100px);
+  opacity: 0;
+  }
+  to{
+    transform: translateY(0);
+  opacity: 1;
+  }
+}

@@ -1,0 +1,238 @@
+/* Benefits Page Styles */
+.benefits-page {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Hero Section */
+.benefits-hero {
+  background: #3498db;
+  color: white;
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.benefits-hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+}
+
+.benefits-hero .subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Main Benefits */
+.main-benefits {
+  padding: 4rem 0;
+}
+
+.main-benefits h2 {
+  text-align: center;
+  font-size: 2rem;
+  /* color: #2c3e50; */
+  color: #ffffff;
+  margin-bottom: 3rem;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.benefit-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+}
+
+.benefit-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.benefit-card h3 {
+  color: #3498db;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.benefit-card p {
+  color: #7f8c8d;
+  font-size: 0.95rem;
+}
+
+/* Career Outcomes */
+.career-outcomes {
+  padding: 4rem 0;
+  background-color: #f8f9fa;
+}
+
+.career-outcomes h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 3rem;
+}
+
+.outcomes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  text-align: center;
+}
+
+.outcome-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stat {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #3498db;
+  margin-bottom: 1rem;
+}
+
+/* Testimonials */
+.testimonials-section {
+  padding: 4rem 0;
+}
+
+.testimonials-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 3rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.testimonial-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.quote {
+  font-style: italic;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.author {
+  font-weight: 600;
+  color: #3498db;
+}
+
+/* CTA Section */
+.benefits-cta {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #2c3e50, #3498db);
+  color: white;
+  text-align: center;
+}
+
+.benefits-cta h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.benefits-cta p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bf-cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.bf-primary-btn, .bf-secondary-btn {
+  padding: 0.8rem 1.8rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.bf-primary-btn {
+  background-color: white;
+  color: #3498db;
+  border: none;
+}
+
+.bf-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.bf-secondary-btn {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.bf-secondary-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .benefits-hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .primary-btn, .secondary-btn {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 576px) {
+  .benefits-hero {
+    padding: 3rem 0;
+  }
+  
+  .benefit-card {
+    padding: 1.5rem;
+  }
+  
+  .outcomes-container {
+    grid-template-columns: 1fr;
+  }
+}
