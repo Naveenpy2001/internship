@@ -24,11 +24,10 @@ const FooterComponent = () => {
             <div className="links-column" style={{marginTop:'18px'}}>
               <h4 className="links-title">Support</h4>
               <ul>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Refund Policy</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/terms-of-service">Terms of Service</a></li>
+                <li><a href="/refund-policy">Refund Policy</a></li>
               </ul>
             </div>
           </div>
@@ -37,11 +36,11 @@ const FooterComponent = () => {
             <div className="links-column">
               <h4 className="links-title">Programs</h4>
               <ul>
-                <li><a href="#">Java Internship</a></li>
-                <li><a href="#">Python Internship</a></li>
-                <li><a href="#">Full-Stack Development</a></li>
-                <li><a href="#">Data Science</a></li>
-                <li><a href="#">Cloud Computing</a></li>
+                <li><a href="/java">Java Internship</a></li>
+                <li><a href="/python">Python Internship</a></li>
+                <li><a href="/java/fullstack">Full-Stack Development</a></li>
+                <li><a href="/data-science">Data Science</a></li>
+                <li><a href="/dev-ops">Cloud Computing</a></li>
               </ul>
             </div>
 
@@ -49,11 +48,9 @@ const FooterComponent = () => {
               <h4 className="links-title">Company</h4>
               <ul>
                 <li><a href="#">About Us</a></li>
-                <li><a href="#">Become Partner</a></li>
-                <li><a href="#">Our Team</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Partners</a></li>
-                <li><a href="#">Testimonials</a></li>
+                <li><a href="/become-partner">Become Partner</a></li>
+                <li><a href="/our-team">Our Team</a></li>
+                <li><a href="/partners">Partners</a></li>
               </ul>
             </div>
 

@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import "../css/Nav.css";
 // import logo from "../assets/intern.png";
 import logo from "../assets/intern.png";
+import EnrollmentForm from "../pages/courses/components/EnrollForm";
+
 const InternshipNavbar = ({ isLogin }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCoursesOpen, setIsCoursesOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState("Select Internship");
+  
+  const [showEnrollment, setShowEnrollment] = useState(false);
+  
 
   const courses = [
     {
@@ -42,6 +47,28 @@ const InternshipNavbar = ({ isLogin }) => {
       url: "mern",
     },
   ];
+
+  const upcomingBatches = [
+    {
+      date: "August 5, 2023",
+      duration: "16 weeks",
+      timing: "Weekdays (Mon-Fri) 7-9 PM IST",
+      seats: "10 seats left",
+    },
+    {
+      date: "September 1, 2023",
+      duration: "18 weeks",
+      timing: "Weekends (Sat-Sun) 10 AM-2 PM IST",
+      seats: "15 seats left",
+    },
+    {
+      date: "October 10, 2023",
+      duration: "16 weeks",
+      timing: "Weekdays (Mon-Fri) 6-8 PM IST",
+      seats: "Open for enrollment",
+    },
+  ];
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -113,6 +140,24 @@ const InternshipNavbar = ({ isLogin }) => {
           </ul>
         </div>
 
+        {showEnrollment && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <button
+              className="close-btn"
+              onClick={() => setShowEnrollment(false)}
+            >
+              ×
+            </button>
+            <EnrollmentForm
+              courseName="Artificial Intelligence Internship Program"
+              batches={upcomingBatches}
+              onClose={() => setShowEnrollment(false)}
+            />
+          </div>
+        </div>
+      )}
+
         {/* Auth Buttons */}
         <div className="auth-buttons">
           {isLogin ? (
@@ -130,7 +175,7 @@ const InternshipNavbar = ({ isLogin }) => {
               
               <button className="login-btn">Login</button>
               <button className="login-btn">Sign Up</button>
-              <button className="signup-btn">Enroll Now</button>
+              <button className="signup-btn" onClick={() => setShowEnrollment(true)}>Enroll Now</button>
             </>
           )}
         </div>

@@ -17,6 +17,12 @@ import MERNStackPage from "./pages/courses/MERNStack";
 import DevOpsPage from "./pages/courses/DevOps";
 import WebinarPage from "./pages/Webinar";
 import ScrollToTopButton from "./pages/courses/components/ScrollToTop";
+import OurTeam from "./pages/OurTeam";
+import Partners from "./pages/Partners";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import RefundPolicy from "./pages/RefundPolicy";
+import BecomePartner from "./pages/BecomePartner";
 
 
 
@@ -52,6 +58,14 @@ function App() {
         <Route path="/benefits" element={<BenefitsPage />} />
         <Route path="/webinar" element={<WebinarPage />} />
         <Route path="/contact" element={<ContactPage />} />
+
+        
+        <Route path="/our-team" element={<OurTeam />} />
+        <Route path="/partners" element={<Partners />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/refund-policy" element={<RefundPolicy  />} />
+        <Route path="/become-partner" element={<BecomePartner  />} />
       </Routes>
       <FooterComponent />
     </ScrollAnimationWrapper>

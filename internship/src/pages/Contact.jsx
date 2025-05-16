@@ -2,10 +2,14 @@
 import React from 'react';
 
 import ContactForm from '../components/ContactUs';
+import './style.css'
 
 const ContactPage = () => {
   return (
     <div className="page-container">
+      <div className="breadcrumbs container">
+        <a href="/">Home</a>  &gt; Contact Us
+      </div>
       <br />
       <center>
         <div>
