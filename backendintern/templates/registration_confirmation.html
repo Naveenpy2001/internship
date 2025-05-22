@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #3498db; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; background-color: #f9f9f9; }
+        .footer { padding: 20px; text-align: center; font-size: 12px; color: #777; }
+        .code {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #eaf2f8;
+            border-left: 5px solid #3498db;
+            border-radius: 5px;
+        }
+        .meeting-link {
+            display: block;
+            margin: 20px 0;
+            padding: 12px;
+            background-color: #e8f5e9;
+            border-left: 5px solid #27ae60;
+            text-align: center;
+            word-wrap: break-word;
+        }
+        .meeting-link a {
+            font-weight: bold;
+            color: #27ae60;
+            text-decoration: none;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Webinar Registration Confirmation</h1>
+        </div>
+
+        <div class="content">
+            <p>Dear {{ registration.name|title }},</p>
+
+            <p>Thank you for registering for our webinar:</p>
+
+            <h2>{{ webinar.title }}</h2>
+
+            <p><strong>Date & Time:</strong> {{ webinar.scheduled_time|date:"F j, Y, g:i a" }} ({{ webinar.duration }} mins)</p>
+            <p><strong>Presenter:</strong> {{ webinar.presenter }}</p>
+            <p><strong>Platform:</strong> {{ webinar.get_platform_display }}</p>
+
+            <p>Your <strong>registration code</strong> is:</p>
+            <div class="code">{{ registration.registration_code }}</div>
+
+            <div class="meeting-link">
+                Join Webinar: <a href="{{ webinar.meeting_link }}">{{ webinar.meeting_link }}</a>
+            </div>
+
+            <p>Please keep this code safe. You'll need it to join the webinar.</p>
+            <p>We'll also send a reminder shortly before the webinar starts.</p>
+
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text={{ webinar.title|urlencode }}&dates={{ webinar.scheduled_time|date:"Ymd\\THis" }}/{{ webinar.scheduled_time|date:"Ymd\\THis"|add:"" }}&details={{ webinar.description|urlencode }}&location={{ webinar.meeting_link|urlencode }}" class="button" target="_blank">Add to Google Calendar</a>
+        </div>
+
+        <div class="footer">
+            <p>If you have any questions, contact us at <a href="mailto:info@tsaritservices.com">info@tsaritservices.com</a></p>
+            <p>&copy; {% now "Y" %} Your Company. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+.speaker-table-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.speaker-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.speaker-table th,
+.speaker-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.speaker-table th {
+    background-color: #f4f4f4;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: white;
+}
+
+.badge.pending {
+    background-color: orange;
+}
+
+.badge.approved {
+    background-color: green;
+}
+
+.badge.rejected {
+    background-color: red;
+}
+
+.approve-btn,
+.reject-btn {
+    margin-right: 8px;
+    padding: 6px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.approve-btn {
+    background-color: green;
+    color: white;
+}
+
+.reject-btn {
+    background-color: red;
+    color: white;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.pagination button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.loading,
+.error {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 18px;
+    color: gray;
+}

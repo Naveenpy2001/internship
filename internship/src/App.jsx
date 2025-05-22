@@ -23,6 +23,9 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import RefundPolicy from "./pages/RefundPolicy";
 import BecomePartner from "./pages/BecomePartner";
+import WebinarManagement from "./admin/WebinarManagement";
+import WebinarRegistration from "./pages/WebinarRegistration";
+import SpeakerApproval from "./pages/SpeakerApproval";
 
 
 
@@ -66,6 +69,9 @@ function App() {
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/refund-policy" element={<RefundPolicy  />} />
         <Route path="/become-partner" element={<BecomePartner  />} />
+        <Route path="/admin/webinar" element={<WebinarManagement />} />
+        <Route path="/admin/speaker" element={<SpeakerApproval />} />
+        <Route path="/webinar/:id/register" element={<WebinarRegistration />} />
       </Routes>
       <FooterComponent />
     </ScrollAnimationWrapper>

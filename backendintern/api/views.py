@@ -158,3 +158,110 @@ TSAR-IT PVT LTD
         contact = EnrollmentForm.objects.all()
         serialize = EnrollmentSerializer(contact, many=True)
         return Response(serialize.data, status=status.HTTP_200_OK)
+
+
+
+
+
+from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Webinar, Registration,Speaker
+from .serializers import WebinarSerializer, RegistrationSerializer,SpeakerSerializer
+from rest_framework.decorators import action
+from django.utils.timezone import now
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
+class WebinarViewSet(viewsets.ModelViewSet):
+    queryset = Webinar.objects.all().order_by('-scheduled_time')
+    serializer_class = WebinarSerializer
+
+    @action(detail=False, methods=['get'], url_path='upcoming')
+    def upcoming_webinars(self, request):
+        upcoming = self.get_queryset().filter(scheduled_time__gt=now())
+        serializer = self.get_serializer(upcoming, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'], url_path='completed')
+    def completed_webinars(self, request):
+        completed = self.get_queryset().filter(scheduled_time__lte=now())
+        serializer = self.get_serializer(completed, many=True)
+        return Response(serializer.data)
+
+class RegistrationViewSet(viewsets.ModelViewSet):
+    queryset = Registration.objects.all()
+    serializer_class = RegistrationSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class SpeakerViewSet(viewsets.ModelViewSet):
+    queryset = Speaker.objects.all().order_by('-submitted_at')
+    serializer_class = SpeakerSerializer
+
+    def perform_create(self, serializer):
+        speaker = serializer.save()
+        # Send confirmation email to admin
+        self.send_admin_notification(speaker)
+        # Send confirmation email to speaker
+        self.send_speaker_confirmation(speaker)
+
+    def send_admin_notification(self, speaker):
+        subject = f"New Speaker Application: {speaker.topic}"
+        html_message = render_to_string('admin_speaker_notification.html', {
+            'speaker': speaker,
+        })
+        plain_message = strip_tags(html_message)
+        send_mail(
+            subject,
+            plain_message,
+            'webinars@yourdomain.com',
+            ['admin@yourdomain.com'],  # Your admin email
+            html_message=html_message,
+            fail_silently=False,
+        )
+
+    def send_speaker_confirmation(self, speaker):
+        subject = f"Speaker Application Received: {speaker.topic}"
+        html_message = render_to_string('speaker_confirmation.html', {
+            'speaker': speaker,
+        })
+        plain_message = strip_tags(html_message)
+        send_mail(
+            subject,
+            plain_message,
+            'webinars@yourdomain.com',
+            [speaker.email],
+            html_message=html_message,
+            fail_silently=False,
+        )
+
+    @action(detail=True, methods=['patch'])
+    def approve(self, request, pk=None):
+        speaker = self.get_object()
+        speaker.status = 'approved'
+        speaker.notes = request.data.get('notes', '')
+        speaker.save()
+        speaker.send_speaker_confirmation()
+        return Response({'status': 'approved'})
+
+    @action(detail=True, methods=['patch'])
+    def reject(self, request, pk=None):
+        speaker = self.get_object()
+        speaker.status = 'rejected'
+        speaker.notes = request.data.get('notes', '')
+        speaker.save()
+        return Response({'status': 'rejected'})

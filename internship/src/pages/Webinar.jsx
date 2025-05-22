@@ -1,75 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../css/Webinar.css';
 
 const WebinarPage = () => {
   const [activeTab, setActiveTab] = useState('upcoming');
-  const [showSpeakerForm, setShowSpeakerForm] = useState(false);
   const [showRegistrationForm, setShowRegistrationForm] = useState(false);
   const [selectedWebinar, setSelectedWebinar] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  
+  // Webinar data states
+  const [upcomingWebinars, setUpcomingWebinars] = useState([]);
+  const [pastWebinars, setPastWebinars] = useState([]);
   
   // Form states
   const [registrationData, setRegistrationData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    webinarId: ''
-  });
-  
-  const [speakerData, setSpeakerData] = useState({
     name: '',
     email: '',
-    phone: '',
-    company: '',
-    position: '',
-    topic: '',
-    bio: ''
+    webinar: ''
   });
 
-  // Webinar data
-  const upcomingWebinars = [
-    {
-      id: 1,
-      title: "How to Crack Technical Interviews",
-      date: "August 15, 2023",
-      time: "6:00 PM - 7:30 PM IST",
-      speaker: "Rahul Sharma (Senior Engineer, Google)",
-      description: "Learn proven strategies to ace your technical interviews with tips from industry experts",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71"
-    },
-    {
-      id: 2,
-      title: "Building Your First Full Stack Project",
-      date: "August 22, 2023",
-      time: "5:00 PM - 6:30 PM IST",
-      speaker: "Priya Patel (Lead Developer, Amazon)",
-      description: "Step-by-step guide to creating an impressive portfolio project using MERN stack",
-      image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485"
-    }
-  ];
+  const fetchWebinars = async () => {
+      try {
+        setLoading(true);
+        const upcomingResponse = await axios.get('http://127.0.0.1:8000/api/webinars/');
+        const pastResponse = await axios.get('/api/webinars/?status=completed');
+        
+        setUpcomingWebinars(Array.isArray(upcomingResponse.data) ? upcomingResponse.data : []);
+        setPastWebinars(Array.isArray(pastResponse.data) ? pastResponse.data : []);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching webinars:', err);
+        setError('Failed to load webinars. Please try again later.');
+        setLoading(false);
+      }
+    };
 
-  const pastWebinars = [
-    {
-      id: 3,
-      title: "Getting Started with Data Science",
-      date: "July 25, 2023",
-      speaker: "Dr. Ananya Gupta (Data Scientist, Microsoft)",
-      recording: "https://youtube.com/embed/example1",
-      resources: ["Slides PDF", "Code Samples"]
-    },
-    {
-      id: 4,
-      title: "DevOps Best Practices for Beginners",
-      date: "July 18, 2023",
-      speaker: "Arjun Mehta (DevOps Engineer, Netflix)",
-      recording: "https://youtube.com/embed/example2",
-      resources: ["Slides PDF", "Cheat Sheet"]
-    }
-  ];
+  // Fetch webinars from backend
+  useEffect(() => {
+    
 
-  const handleRegisterClick = (webinarId) => {
-    setSelectedWebinar(webinarId);
-    setRegistrationData(prev => ({...prev, webinarId}));
+    fetchWebinars();
+  }, []);
+
+  const handleRegisterClick = (webinar) => {
+    setSelectedWebinar(webinar);
+    setRegistrationData(prev => ({
+      ...prev,
+      webinar: webinar.id
+    }));
     setShowRegistrationForm(true);
+    setRegistrationSuccess(false);
+    setError('');
   };
 
   const handleRegistrationChange = (e) => {
@@ -77,51 +60,131 @@ const WebinarPage = () => {
     setRegistrationData(prev => ({...prev, [name]: value}));
   };
 
+  const handleRegistrationSubmit = async (e) => {
+    e.preventDefault(); // Prevent form submission from refreshing page
+    
+    setLoading(true);
+    setError('');
+    
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/registrations/', registrationData);
+
+      fetchWebinars();
+
+      // Show success message
+      setRegistrationSuccess(true);
+      
+      // Reset form
+      setRegistrationData({
+        name: '',
+        email: '',
+        webinar: '',
+        phone: '',
+        heare_about_us: '',
+      });
+      
+      // Refresh webinars to update registration count
+      const updatedResponse = await axios.get('/api/webinars/?status=upcoming');
+      setUpcomingWebinars(Array.isArray(updatedResponse.data) ? updatedResponse.data : []);
+      
+      // Hide form after 6 seconds
+      setTimeout(() => {
+        setShowRegistrationForm(false);
+        setRegistrationSuccess(false);
+      }, 6000);
+    } catch (err) {
+      console.error('Registration error:', err);
+      setError(err.response?.data?.detail || 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const options = { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric', 
+      hour: '2-digit', 
+      minute: '2-digit',
+      timeZoneName: 'short'
+    };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+
+  const [showSpeakerForm, setShowSpeakerForm] = useState(false);
+  const [speakerData, setSpeakerData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    position: '',
+    topic: '',
+    bio: '',
+    linkedin: '',
+  });
+
   const handleSpeakerChange = (e) => {
     const { name, value } = e.target;
     setSpeakerData(prev => ({...prev, [name]: value}));
   };
 
-  const handleRegistrationSubmit = (e) => {
+  const handleSpeakerSubmit = async (e) => {
     e.preventDefault();
-    // In a real app, you would send this to your backend
-    console.log("Registration data:", registrationData);
-    alert(`Thank you for registering! Details will be sent to ${registrationData.email}`);
-    setShowRegistrationForm(false);
-    setRegistrationData({
-      fullName: '',
-      email: '',
-      phone: '',
-      webinarId: ''
-    });
-  };
+    setLoading(true);
+    setError('');
 
-  const handleSpeakerSubmit = (e) => {
-    e.preventDefault();
-    // In a real app, you would send this to your backend
-    console.log("Speaker application:", speakerData);
-    alert(`Thank you for your interest, ${speakerData.name}! We'll contact you soon.`);
-    setShowSpeakerForm(false);
-    setSpeakerData({
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      position: '',
-      topic: '',
-      bio: ''
-    });
+    try {
+      await axios.post('http://127.0.0.1:8000/api/speakers/', speakerData);
+      alert('Thank you for your application! We will review your information and contact you soon.');
+      setShowSpeakerForm(false);
+      setSpeakerData({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        position: '',
+        topic: '',
+        bio: '',
+        linkedin: '',
+        twitter: ''
+      });
+    } catch (err) {
+      console.error('Speaker submission error:', err);
+      setError(err.response?.data || 'Submission failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="webinar-page">
       {/* Hero Section */}
       <section className="webinar-hero">
-        <div className="container">
-          <h1>Internship Webinars</h1>
-          <p className="subtitle">Learn from industry experts and get your questions answered live</p>
+  <div className="webinar-overlay"></div>
+  <div className="webinar-container">
+    <div className="webinar-content">
+      <h1>Internship Webinars</h1>
+      <p className="webinar-subtitle">Learn directly from industry leaders and accelerate your career</p>
+      
+      <div className="webinar-stats">
+        <div className="stat-item">
+          <span className="stat-number">50+</span>
+          <span className="stat-label">Industry Experts</span>
         </div>
-      </section>
+        <div className="stat-item">
+          <span className="stat-number">10K+</span>
+          <span className="stat-label">Participants</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-number">100%</span>
+          <span className="stat-label">Free Access</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Tab Navigation */}
       <section className="webinar-tabs">
@@ -146,72 +209,186 @@ const WebinarPage = () => {
       {/* Webinar Content */}
       <section className="webinar-content">
         <div className="container">
-          {activeTab === 'upcoming' ? (
+          {error && <div className="error-message">{error}</div>}
+          
+          {loading ? (
+            <div className="loading-spinner">Loading webinars...</div>
+          ) : activeTab === 'upcoming' ? (
             <div className="upcoming-webinars">
               <h2>Upcoming Webinars</h2>
-              <div className="webinar-cards">
-                {upcomingWebinars.map(webinar => (
-                  <div className="webinar-card" key={webinar.id}>
-                    <div className="webinar-image" style={{ backgroundImage: `url(${webinar.image})` }}></div>
-                    <div className="webinar-details">
-                      <h3>{webinar.title}</h3>
-                      <div className="meta">
-                        <span className="date">{webinar.date}</span>
-                        <span className="time">{webinar.time}</span>
+              {upcomingWebinars.length === 0 ? (
+                <p className="no-webinars">No upcoming webinars scheduled. Check back later!</p>
+              ) : (
+                <div className="webinar-cards">
+                  {upcomingWebinars.map(webinar => (
+                    <div className="webinar-card" key={webinar.id}>
+                      <div className="webinar-image">
+                        {webinar.web_image === null ? (
+                          <img src="/google-meet-icon.png" alt="Google Meet" />
+                        ) : (
+                          <img src={webinar.web_image} alt="Zoom" />
+                        )}
                       </div>
-                      <p className="speaker">Speaker: {webinar.speaker}</p>
-                      <p className="description">{webinar.description}</p>
-                      <button 
-                        className="register-btn"
-                        onClick={() => handleRegisterClick(webinar.id)}
-                      >
-                        Register for Free
-                      </button>
+                      <div className="webinar-details">
+                        <h3>{webinar.title}</h3>
+                        <div className="meta">
+                          <span className="date">{formatDate(webinar.scheduled_time)}</span>
+                          <span className="duration">{webinar.duration} minutes</span>
+                        </div>
+                        <p className="speaker">Presenter: {webinar.presenter}</p>
+                        <p className="description">{webinar.description}</p>
+                        <div className="registration-info">
+                          <span>
+                            Registrations: {webinar.registration_count}
+                            {webinar.max_participants ? ` / ${webinar.max_participants}` : ''}
+                          </span>
+                        </div>
+                        <button 
+                          className="register-btn"
+                          onClick={() => handleRegisterClick(webinar)}
+                          disabled={webinar.max_participants && webinar.registration_count >= webinar.max_participants}
+                        >
+                          {webinar.max_participants && webinar.registration_count >= webinar.max_participants 
+                            ? 'Fully Booked' 
+                            : 'Register Now'}
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           ) : (
             <div className="past-webinars">
               <h2>Past Webinar Recordings</h2>
-              <div className="recording-cards">
-                {pastWebinars.map(webinar => (
-                  <div className="recording-card" key={webinar.id}>
-                    <div className="video-container">
-                      <iframe 
-                        src={webinar.recording}
-                        title={webinar.title}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
-                    <div className="recording-details">
-                      <h3>{webinar.title}</h3>
-                      <p className="date">{webinar.date}</p>
-                      <p className="speaker">Speaker: {webinar.speaker}</p>
-                      <div className="resources">
-                        <h4>Resources:</h4>
-                        <ul>
-                          {webinar.resources.map((resource, index) => (
-                            <li key={index}>
-                              <a href="#download">{resource}</a>
-                            </li>
-                          ))}
-                        </ul>
+              {pastWebinars.length === 0 ? (
+                <p className="no-webinars">No past webinar recordings available yet.</p>
+              ) : (
+                <div className="recording-cards">
+                  {pastWebinars.map(webinar => (
+                    <div className="recording-card" key={webinar.id}>
+                      <div className="video-container">
+                        <div className="recording-placeholder">
+                          <iframe 
+                            width="100%" 
+                            height="100%" 
+                            src={webinar.recording_url || "about:blank"}
+                            title={webinar.title}
+                            frameBorder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      </div>
+                      <div className="recording-details">
+                        <h3>{webinar.title}</h3>
+                        <p className="date">{formatDate(webinar.scheduled_time)}</p>
+                        <p className="speaker">Presenter: {webinar.presenter}</p>
+                        <div className="resources">
+                          <h4>Description:</h4>
+                          <p>{webinar.description}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="webinar-cta">
+      {/* Registration Modal */}
+      {showRegistrationForm && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <button 
+              className="close-btn"
+              onClick={() => {
+                setShowRegistrationForm(false);
+                setRegistrationSuccess(false);
+              }}
+              disabled={loading}
+            >
+              &times;
+            </button>
+            
+            {registrationSuccess ? (
+              <div className="registration-success">
+                <h2>Registration Successful!</h2>
+                <div className="success-icon">✓</div>
+                <p>A confirmation has been sent to {registrationData.email}</p>
+                <p>The webinar details will be emailed to you shortly.</p>
+                <p className="closing-notice">This window will close automatically...</p>
+              </div>
+            ) : (
+              <>
+                <h2>Register for Webinar</h2>
+                <p className="webinar-title">
+                  {selectedWebinar?.title}
+                </p>
+                
+                <form onSubmit={handleRegistrationSubmit}>
+                  <div className="form-group">
+                    <label>Full Name*</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={registrationData.name}
+                      onChange={handleRegistrationChange}
+                      required
+                      disabled={loading}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Email*</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={registrationData.email}
+                      onChange={handleRegistrationChange}
+                      required
+                      disabled={loading}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Phone*</label>
+                    <input
+                      type="text"
+                      name="phone"
+                      value={registrationData.phone}
+                      onChange={handleRegistrationChange}
+                      required
+                      disabled={loading}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Where you heared about us</label>
+                    <input
+                      type="text"
+                      name="heare_about_us"
+                      value={registrationData.heare_about_us}
+                      onChange={handleRegistrationChange}
+                      required
+                      disabled={loading}
+                    />
+                  </div>
+                  {error && <div className="form-error">{error}</div>}
+                  <button 
+                    type="submit" 
+                    className="submit-btn"
+                    disabled={loading}
+                  >
+                    {loading ? 'Processing...' : 'Complete Registration'}
+                  </button>
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+       <section className="webinar-cta">
         <div className="container">
           <h2>Want to Host a Webinar With Us?</h2>
           <p>Are you an industry expert interested in sharing your knowledge with our interns?</p>
@@ -223,72 +400,21 @@ const WebinarPage = () => {
           </button>
         </div>
       </section>
-
-      {/* Registration Modal */}
-      {showRegistrationForm && (
+       {showSpeakerForm && (
         <div className="modal-overlay">
           <div className="modal-content">
             <button 
               className="close-btn"
-              onClick={() => setShowRegistrationForm(false)}
-            >
-              &times;
-            </button>
-            <h2>Register for Webinar</h2>
-            <p className="webinar-title">
-              {upcomingWebinars.find(w => w.id === selectedWebinar)?.title}
-            </p>
-            <form onSubmit={handleRegistrationSubmit}>
-              <div className="form-group">
-                <label>Full Name*</label>
-                <input
-                  type="text"
-                  name="fullName"
-                  value={registrationData.fullName}
-                  onChange={handleRegistrationChange}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>Email*</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={registrationData.email}
-                  onChange={handleRegistrationChange}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>Phone Number*</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={registrationData.phone}
-                  onChange={handleRegistrationChange}
-                  required
-                />
-              </div>
-              <button type="submit" className="submit-btn">
-                Complete Registration
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* Speaker Application Modal */}
-      {showSpeakerForm && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <button 
-              className="close-btn"
-              onClick={() => setShowSpeakerForm(false)}
+              onClick={() => !loading && setShowSpeakerForm(false)}
+              disabled={loading}
             >
               &times;
             </button>
             <h2>Become a Speaker</h2>
-            <p>Fill out this form to apply as a webinar speaker</p>
+            <p>Share your expertise with our community</p>
+            
+            {error && <div className="error-message">{error}</div>}
+            
             <form onSubmit={handleSpeakerSubmit}>
               <div className="form-group">
                 <label>Full Name*</label>
@@ -298,8 +424,10 @@ const WebinarPage = () => {
                   value={speakerData.name}
                   onChange={handleSpeakerChange}
                   required
+                  disabled={loading}
                 />
               </div>
+              
               <div className="form-group">
                 <label>Email*</label>
                 <input
@@ -308,18 +436,22 @@ const WebinarPage = () => {
                   value={speakerData.email}
                   onChange={handleSpeakerChange}
                   required
+                  disabled={loading}
                 />
               </div>
+              
               <div className="form-group">
-                <label>Phone Number*</label>
+                <label>Phone*</label>
                 <input
                   type="tel"
                   name="phone"
                   value={speakerData.phone}
                   onChange={handleSpeakerChange}
                   required
+                  disabled={loading}
                 />
               </div>
+              
               <div className="form-group">
                 <label>Company/Organization</label>
                 <input
@@ -327,8 +459,10 @@ const WebinarPage = () => {
                   name="company"
                   value={speakerData.company}
                   onChange={handleSpeakerChange}
+                  disabled={loading}
                 />
               </div>
+              
               <div className="form-group">
                 <label>Position/Role*</label>
                 <input
@@ -337,8 +471,10 @@ const WebinarPage = () => {
                   value={speakerData.position}
                   onChange={handleSpeakerChange}
                   required
+                  disabled={loading}
                 />
               </div>
+              
               <div className="form-group">
                 <label>Proposed Topic*</label>
                 <input
@@ -347,25 +483,45 @@ const WebinarPage = () => {
                   value={speakerData.topic}
                   onChange={handleSpeakerChange}
                   required
+                  disabled={loading}
                 />
               </div>
+              
               <div className="form-group">
-                <label>Short Bio*</label>
+                <label>Bio*</label>
                 <textarea
                   name="bio"
                   value={speakerData.bio}
                   onChange={handleSpeakerChange}
                   rows="4"
                   required
+                  disabled={loading}
                 ></textarea>
               </div>
-              <button type="submit" className="submit-btn">
-                Submit Application
+              
+              <div className="form-group">
+                <label>LinkedIn Profile (optional)</label>
+                <input
+                  type="url"
+                  name="linkedin"
+                  value={speakerData.linkedin}
+                  onChange={handleSpeakerChange}
+                  disabled={loading}
+                />
+              </div>
+              
+              
+              <button 
+                type="submit" 
+                className="submit-btn"
+                disabled={loading}
+              >
+                {loading ? 'Submitting...' : 'Submit Application'}
               </button>
             </form>
           </div>
         </div>
-      )}
+        )}
     </div>
   );
 };
