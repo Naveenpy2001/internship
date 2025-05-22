@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import '../css/WebinarStyle.css';
+import api from '../service/api';
 
 const WebinarRegistration = () => {
     const { id } = useParams();
@@ -19,8 +20,8 @@ const WebinarRegistration = () => {
     useEffect(() => {
         const fetchWebinar = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/webinars/1/`);
-                console.log('data : ',response.data);
+                const response = await api.get(`http://127.0.0.1:8000/api/webinars/1/`);
+                
                 
                 setWebinar(response.data);
                 setLoading(false);
@@ -46,7 +47,7 @@ const WebinarRegistration = () => {
         setError('');
         
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/registrations/', {
+            const response = await api.post('http://127.0.0.1:8000/api/registrations/', {
                 ...formData,
                 webinar: 1
             });

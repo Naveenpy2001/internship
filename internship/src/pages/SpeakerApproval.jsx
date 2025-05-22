@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../css/Speaker.css';
+import api from '../service/api';
 
 const SpeakerList = () => {
     const [speakers, setSpeakers] = useState([]);
@@ -14,7 +15,7 @@ const SpeakerList = () => {
     useEffect(() => {
         const fetchSpeakers = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/speakers/');
+                const response = await api.get('http://127.0.0.1:8000/api/speakers/');
                 setSpeakers(response.data);
             } catch (err) {
                 setError('Failed to fetch speakers.');
@@ -30,7 +31,7 @@ const SpeakerList = () => {
         if (!window.confirm(confirmMsg)) return;
 
         try {
-            await axios.patch(`http://127.0.0.1:8000/api/speakers/${id}/`, {
+            await api.patch(`http://127.0.0.1:8000/api/speakers/${id}/`, {
                 status,
             });
             setSpeakers(prev =>

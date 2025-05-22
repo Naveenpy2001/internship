@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/WebinarStyle.css';
+import api from '../service/api';
 
 const WebinarManagement = () => {
     const [webinars, setWebinars] = useState([]);
@@ -29,7 +30,7 @@ const WebinarManagement = () => {
 
     const fetchWebinars = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/webinars/');
+            const response = await api.get('http://127.0.0.1:8000/api/webinars/');
             setWebinars(Array.isArray(response.data) ? response.data : []);
             setLoading(false);
         } catch (error) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import '../css/Webinar.css';
+import api from '../service/api';
 
 const WebinarPage = () => {
   const [activeTab, setActiveTab] = useState('upcoming');
@@ -24,8 +24,8 @@ const WebinarPage = () => {
   const fetchWebinars = async () => {
       try {
         setLoading(true);
-        const upcomingResponse = await axios.get('http://127.0.0.1:8000/api/webinars/');
-        const pastResponse = await axios.get('/api/webinars/?status=completed');
+        const upcomingResponse = await api.get('http://127.0.0.1:8000/api/webinars/');
+        const pastResponse = await api.get('/api/webinars/?status=completed');
         
         setUpcomingWebinars(Array.isArray(upcomingResponse.data) ? upcomingResponse.data : []);
         setPastWebinars(Array.isArray(pastResponse.data) ? pastResponse.data : []);
@@ -67,7 +67,7 @@ const WebinarPage = () => {
     setError('');
     
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/registrations/', registrationData);
+      const response = await api.post('http://127.0.0.1:8000/api/registrations/', registrationData);
 
       fetchWebinars();
 
@@ -84,7 +84,7 @@ const WebinarPage = () => {
       });
       
       // Refresh webinars to update registration count
-      const updatedResponse = await axios.get('/api/webinars/?status=upcoming');
+      const updatedResponse = await api.get('/api/webinars/?status=upcoming');
       setUpcomingWebinars(Array.isArray(updatedResponse.data) ? updatedResponse.data : []);
       
       // Hide form after 6 seconds
@@ -136,7 +136,7 @@ const WebinarPage = () => {
     setError('');
 
     try {
-      await axios.post('http://127.0.0.1:8000/api/speakers/', speakerData);
+      await api.post('http://127.0.0.1:8000/api/speakers/', speakerData);
       alert('Thank you for your application! We will review your information and contact you soon.');
       setShowSpeakerForm(false);
       setSpeakerData({
