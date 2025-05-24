@@ -100,17 +100,19 @@ const WebinarPage = () => {
     }
   };
 
-  const formatDate = (dateString) => {
-    const options = { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric', 
-      hour: '2-digit', 
-      minute: '2-digit',
-      timeZoneName: 'short'
-    };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+const formatDate = (dateString) => {
+  const options = {
+    timeZone: 'Asia/Kolkata', // Set explicitly to IST
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true, // Optional: for AM/PM format
+    timeZoneName: 'short'
   };
+  return new Date(dateString).toLocaleString('en-IN', options);
+};
 
 
   const [showSpeakerForm, setShowSpeakerForm] = useState(false);

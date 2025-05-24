@@ -4,9 +4,17 @@ import '../css/WebinarStyle.css';
 import api from '../service/api';
 
 const WebinarManagement = () => {
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [loginForm, setLoginForm] = useState({
+        email: '',
+        password: ''
+    });
+    const [loginError, setLoginError] = useState('');
+    
+    // Existing state variables
     const [webinars, setWebinars] = useState([]);
     const [registrations, setRegistrations] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [regLoading, setRegLoading] = useState(false);
     const [activeTab, setActiveTab] = useState('webinars');
     const [formData, setFormData] = useState({
@@ -25,12 +33,70 @@ const WebinarManagement = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        fetchWebinars();
+        // Check if credentials exist in localStorage
+        const savedEmail = localStorage.getItem('adminEmail');
+        const savedPassword = localStorage.getItem('adminPassword');
+        
+        if (savedEmail && savedPassword) {
+            // Auto-login with saved credentials
+            handleLogin({
+                email: savedEmail,
+                password: savedPassword
+            }, true);
+        } else {
+            setLoading(false);
+        }
     }, []);
 
+    const handleLogin = (credentials, autoLogin = false) => {
+        const { email, password } = credentials;
+        
+        // Default credentials
+        const DEFAULT_EMAIL = "tsaritservices@gmail.com";
+        const DEFAULT_PASSWORD = "Tsarit@12345";
+
+        if (email === DEFAULT_EMAIL && password === DEFAULT_PASSWORD) {
+            // Store credentials in localStorage
+            if (!autoLogin) {
+                localStorage.setItem('adminEmail', email);
+                localStorage.setItem('adminPassword', password);
+            }
+            
+            setLoading(true);
+            setTimeout(() => {
+                setLoggedIn(true);
+                setLoading(false);
+                fetchWebinars();
+            }, 300);
+        } else {
+            setLoginError('Invalid email or password');
+        }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('adminEmail');
+        localStorage.removeItem('adminPassword');
+        setLoggedIn(false);
+    };
+
+    const handleLoginChange = (e) => {
+        const { name, value } = e.target;
+        setLoginForm({
+            ...loginForm,
+            [name]: value
+        });
+    };
+
+    const handleLoginSubmit = (e) => {
+        e.preventDefault();
+        setLoginError('');
+        handleLogin(loginForm);
+    };
+
+    // Rest of your existing functions (fetchWebinars, fetchRegistrations, etc.)
     const fetchWebinars = async () => {
         try {
-            const response = await api.get('http://127.0.0.1:8000/api/webinars/');
+            const response = await api.get('/api/webinars/');
             setWebinars(Array.isArray(response.data) ? response.data : []);
             setLoading(false);
         } catch (error) {
@@ -42,7 +108,7 @@ const WebinarManagement = () => {
     const fetchRegistrations = async () => {
         setRegLoading(true);
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/registrations/');
+            const response = await axios.get('/api/registrations/');
             setRegistrations(Array.isArray(response.data) ? response.data : []);
             setRegLoading(false);
         } catch (error) {
@@ -72,11 +138,11 @@ const WebinarManagement = () => {
 
         try {
             if (editingId) {
-                await axios.put(`http://127.0.0.1:8000/api/webinars/${editingId}/`, data, {
+                await axios.put(`/api/webinars/${editingId}/`, data, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
             } else {
-                await axios.post(`http://127.0.0.1:8000/api/webinars/`, data, {
+                await axios.post(`/api/webinars/`, data, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
             }
@@ -107,7 +173,7 @@ const WebinarManagement = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this webinar?')) {
             try {
-                await axios.delete(`http://127.0.0.1:8000/api/webinars/${id}/`);
+                await axios.delete(`/api/webinars/${id}/`);
                 fetchWebinars();
             } catch (error) {
                 console.error('Error deleting webinar:', error);
@@ -155,9 +221,59 @@ const WebinarManagement = () => {
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
+    if (loading) {
+        return (
+            <div className="login-container">
+                <div className="loading-spinner"></div>
+                <p>Loading...</p>
+            </div>
+        );
+    }
+
+    if (!loggedIn) {
+        return (
+            <div className="login-container">
+                <div className="login-box">
+                    <h2>Admin Login</h2>
+                    <form onSubmit={handleLoginSubmit}>
+                        <div className="form-group">
+                            <label>Email</label>
+                            <input
+                                type="text"
+                                name="email"
+                                value={loginForm.email}
+                                onChange={handleLoginChange}
+                                placeholder="Enter your email"
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input
+                                type="password"
+                                name="password"
+                                value={loginForm.password}
+                                onChange={handleLoginChange}
+                                placeholder="Enter your password"
+                                required
+                            />
+                        </div>
+                        {loginError && <div className="error-message">{loginError}</div>}
+                        <button type="submit" className="login-button">Login</button>
+                    </form>
+                    <div className="default-credentials">
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="wb-container">
-            <h1 className="wb-title">Webinar Management</h1>
+            <div className="admin-header">
+                <h1 className="wb-title">Webinar Management</h1>
+                <button onClick={handleLogout} className="logout-button">Logout</button>
+            </div>
             
             <div className="wb-tabs">
                 <button 
@@ -175,6 +291,7 @@ const WebinarManagement = () => {
                 >
                     Registrations ({registrations.length})
                 </button>
+                <a href="/admin/speaker"><button className='wb-tab-button'>speakers</button></a>
             </div>
             
             {activeTab === 'webinars' ? (

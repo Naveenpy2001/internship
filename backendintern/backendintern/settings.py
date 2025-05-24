@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-h0nld-i=ig!f(6sg-%zfxunen&$45z7bg*d3f)j-4#yhv5k$ju
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['internship.tsaritservices.com', 'www.internship.tsaritservices.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -112,11 +112,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
+
+USE_TZ = False
 
 USE_I18N = True
 
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
