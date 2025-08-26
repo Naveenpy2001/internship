@@ -10,27 +10,21 @@ import PopularCoursesSlider from "../../components/Popular";
 const JavaPage = () => {
   const [showEnrollment, setShowEnrollment] = useState(false);
   // Upcoming batches data
-  const upcomingBatches = [
+const upcomingBatches = [
     {
-      date: "July 15, 2023",
-      duration: "12 weeks",
+      date: "September 5, 2025",
+      duration: "16 weeks",
       timing: "Weekdays (Mon-Fri) 7-9 PM IST",
+      seats: "10 seats left",
+    },
+    {
+      date: "September 25, 2025",
+      duration: "18 weeks",
+      timing: "Weekends (Sat-Sun) 10 AM-2 PM IST",
       seats: "15 seats left",
     },
-    {
-      date: "August 1, 2023",
-      duration: "16 weeks",
-      timing: "Weekends (Sat-Sun) 10 AM-1 PM IST",
-      seats: "25 seats left",
-    },
-    {
-      date: "September 5, 2023",
-      duration: "12 weeks",
-      timing: "Weekdays (Mon-Fri) 6-8 PM IST",
-      seats: "Open for enrollment",
-    },
-  ];
 
+  ];
   // Curriculum data
   const curriculum = [
     {

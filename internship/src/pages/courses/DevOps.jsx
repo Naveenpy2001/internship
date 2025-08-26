@@ -9,10 +9,20 @@ const DevOpsPage = () => {
   const [showEnrollment, setShowEnrollment] = useState(false);
   
   // Upcoming batches data
-  const upcomingBatches = [
-    { date: 'September 1, 2023', duration: '14 weeks', timing: 'Weekdays (Mon-Fri) 7-9 PM IST', seats: '10 seats left' },
-    { date: 'October 5, 2023', duration: '16 weeks', timing: 'Weekends (Sat-Sun) 10 AM-2 PM IST', seats: '15 seats left' },
-    { date: 'November 10, 2023', duration: '14 weeks', timing: 'Weekdays (Mon-Fri) 6-8 PM IST', seats: 'Open for enrollment' }
+ const upcomingBatches = [
+    {
+      date: "September 5, 2025",
+      duration: "16 weeks",
+      timing: "Weekdays (Mon-Fri) 7-9 PM IST",
+      seats: "10 seats left",
+    },
+    {
+      date: "September 25, 2025",
+      duration: "18 weeks",
+      timing: "Weekends (Sat-Sun) 10 AM-2 PM IST",
+      seats: "15 seats left",
+    },
+
   ];
 
   // Curriculum data

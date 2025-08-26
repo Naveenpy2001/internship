@@ -9,10 +9,20 @@ const DataSciencePage = () => {
   const [showEnrollment, setShowEnrollment] = useState(false);
   
   // Upcoming batches data
-  const upcomingBatches = [
-    { date: 'July 25, 2023', duration: '12 weeks', timing: 'Weekdays (Mon-Fri) 7-9 PM IST', seats: '10 seats left' },
-    { date: 'August 10, 2023', duration: '16 weeks', timing: 'Weekends (Sat-Sun) 10 AM-2 PM IST', seats: '18 seats left' },
-    { date: 'September 15, 2023', duration: '12 weeks', timing: 'Weekdays (Mon-Fri) 6-8 PM IST', seats: 'Open for enrollment' }
+const upcomingBatches = [
+    {
+      date: "September 5, 2025",
+      duration: "16 weeks",
+      timing: "Weekdays (Mon-Fri) 7-9 PM IST",
+      seats: "10 seats left",
+    },
+    {
+      date: "September 25, 2025",
+      duration: "18 weeks",
+      timing: "Weekends (Sat-Sun) 10 AM-2 PM IST",
+      seats: "15 seats left",
+    },
+
   ];
 
   // Curriculum data

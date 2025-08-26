@@ -83,11 +83,11 @@ const WebinarPage = () => {
         heare_about_us: '',
       });
       
-      // Refresh webinars to update registration count
+      
       const updatedResponse = await api.get('/api/webinars/?status=upcoming');
       setUpcomingWebinars(Array.isArray(updatedResponse.data) ? updatedResponse.data : []);
       
-      // Hide form after 6 seconds
+      
       setTimeout(() => {
         setShowRegistrationForm(false);
         setRegistrationSuccess(false);
@@ -102,13 +102,13 @@ const WebinarPage = () => {
 
 const formatDate = (dateString) => {
   const options = {
-    timeZone: 'Asia/Kolkata', // Set explicitly to IST
+    timeZone: 'Asia/Kolkata', 
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
-    hour12: true, // Optional: for AM/PM format
+    hour12: true,
     timeZoneName: 'short'
   };
   return new Date(dateString).toLocaleString('en-IN', options);
